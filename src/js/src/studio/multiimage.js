@@ -27,8 +27,8 @@ var USE_CANVG = false;//window.canvg && true;
 /**
  * Represents a form field for image values.
  */
-studio.forms.ZipField = studio.forms.Field.extend({
-  
+studio.forms.MultiImageField = studio.forms.Field.extend({
+
   constructor: function(id, params) {
     this.valueType_ = null;
     this.textParams_ = {};
@@ -45,17 +45,17 @@ studio.forms.ZipField = studio.forms.Field.extend({
 
     // Set up drag+drop on the entire field container
     fieldUI.addClass('form-field-drop-target');
-    fieldUI.get(0).ondragenter = studio.forms.ZipField.makeDragenterHandler_(
+    fieldUI.get(0).ondragenter = studio.forms.MultiImageField.makeDragenterHandler_(
       fieldUI);
-    fieldUI.get(0).ondragleave = studio.forms.ZipField.makeDragleaveHandler_(
+    fieldUI.get(0).ondragleave = studio.forms.MultiImageField.makeDragleaveHandler_(
       fieldUI);
-    fieldUI.get(0).ondragover = studio.forms.ZipField.makeDragoverHandler_(
+    fieldUI.get(0).ondragover = studio.forms.MultiImageField.makeDragoverHandler_(
       fieldUI);
-    fieldUI.get(0).ondrop = studio.forms.ZipField.makeDropHandler_(fieldUI,
+    fieldUI.get(0).ondrop = studio.forms.MultiImageField.makeDropHandler_(fieldUI,
       function(evt) {
         evt.stopPropagation();
         evt.preventDefault();
-        studio.forms.ZipField.loadImageFromFileList(evt.dataTransfer.files, function(ret) {
+        studio.forms.MultiImageField.loadImageFromFileList(evt.dataTransfer.files, function(ret) {
           if (!ret)
             return;
 
@@ -111,7 +111,7 @@ studio.forms.ZipField = studio.forms.Field.extend({
         accept: 'image/*'
       })
       .change(function() {
-        studio.forms.ZipField.loadImageFromFileList(me.fileEl_.get(0).files, function(ret) {
+        studio.forms.MultiImageField.loadImageFromFileList(me.fileEl_.get(0).files, function(ret) {
           if (!ret)
             return;
 
@@ -164,12 +164,12 @@ studio.forms.ZipField = studio.forms.Field.extend({
         .addClass('cancel-parent-scroll')
         .appendTo(clipartParamsEl);
 
-      for (var i = 0; i < studio.forms.ZipField.clipartList_.length; i++) {
-        var clipartSrc = 'res/clipart/' + studio.forms.ZipField.clipartList_[i];
+      for (var i = 0; i < studio.forms.MultiImageField.clipartList_.length; i++) {
+        var clipartSrc = 'res/clipart/' + studio.forms.MultiImageField.clipartList_[i];
         $('<img>')
           .addClass('form-image-clipart-item')
           .attr('src', clipartSrc)
-          .attr('title', studio.forms.ZipField.clipartList_[i])
+          .attr('title', studio.forms.MultiImageField.clipartList_[i])
           .click(function(clipartSrc) {
             return function() {
               me.loadClipart_(clipartSrc);
@@ -224,7 +224,7 @@ studio.forms.ZipField = studio.forms.Field.extend({
             }),
             new studio.forms.AutocompleteTextField('font', {
               title: '字体',
-              items: studio.forms.ZipField.fontList_
+              items: studio.forms.MultiImageField.fontList_
             })
           ]
         });
@@ -535,7 +535,7 @@ studio.forms.ZipField = studio.forms.Field.extend({
   }
 });
 
-studio.forms.ZipField.clipartList_ = [
+studio.forms.MultiImageField.clipartList_ = [
 'icons/action_3d_rotation.svg',
 'icons/action_accessibility.svg',
 'icons/action_account_balance.svg',
@@ -1284,7 +1284,7 @@ studio.forms.ZipField.clipartList_ = [
 'icons/toggle_star_outline.svg'
 ];
 
-studio.forms.ZipField.fontList_ = [
+studio.forms.MultiImageField.fontList_ = [
   'Roboto',
   'Helvetica',
   'Arial',
@@ -1297,7 +1297,7 @@ studio.forms.ZipField.fontList_ = [
   'Wingdings'
 ];
 
-studio.forms.ZipField.readFile = function(files,i,datas,callback){
+studio.forms.MultiImageField.readFile = function(files,i,datas,callback){
   console.log(i);
   if(i == files.length)
     return callback(datas);
@@ -1324,7 +1324,7 @@ studio.forms.ZipField.readFile = function(files,i,datas,callback){
       if(datas ==null)
         datas =[]
       datas.push(filedata);
-      studio.forms.ZipField.readFile(files,++i,datas,callback);
+      studio.forms.MultiImageField.readFile(files,++i,datas,callback);
     };
     fileReader.onerror = function(e) {
       switch(e.target.error.code) {
@@ -1370,7 +1370,7 @@ studio.forms.ZipField.readFile = function(files,i,datas,callback){
  *      the loaded image. There will also be a 'name' field indicating the file name, if one
  *      is available.
  */
-studio.forms.ZipField.loadImageFromFileList = function(fileList, callback) {
+studio.forms.MultiImageField.loadImageFromFileList = function(fileList, callback) {
   fileList = fileList || [];
 
   var file = null;
@@ -1379,7 +1379,7 @@ studio.forms.ZipField.loadImageFromFileList = function(fileList, callback) {
     console.log(data);
     callback(data);
   }
-  studio.forms.ZipField.readFile(fileList,0,null,c);
+  studio.forms.MultiImageField.readFile(fileList,0,null,c);
 };
 
 /**
@@ -1388,10 +1388,10 @@ studio.forms.ZipField.loadImageFromFileList = function(fileList, callback) {
  * @private
  * @param {File} file Describe this parameter
  */
-studio.forms.ZipField.isValidFile_ = function(file) {
+studio.forms.MultiImageField.isValidFile_ = function(file) {
   return !!file.type.toLowerCase().match(/^image\//);
 };
-/*studio.forms.ZipField.isValidFile_.allowedTypes = {
+/*studio.forms.MultiImageField.isValidFile_.allowedTypes = {
   'image/png': true,
   'image/jpeg': true,
   'image/svg+xml': true,
@@ -1399,14 +1399,14 @@ studio.forms.ZipField.isValidFile_ = function(file) {
   'image/vnd.adobe.photoshop': true
 };*/
 
-studio.forms.ZipField.makeDropHandler_ = function(el, handler) {
+studio.forms.MultiImageField.makeDropHandler_ = function(el, handler) {
   return function(evt) {
     $(el).removeClass('drag-hover');
     handler(evt);
   };
 };
 
-studio.forms.ZipField.makeDragoverHandler_ = function(el) {
+studio.forms.MultiImageField.makeDragoverHandler_ = function(el) {
   return function(evt) {
     el = $(el).get(0);
     if (el._studio_frm_dragtimeout_) {
@@ -1418,7 +1418,7 @@ studio.forms.ZipField.makeDragoverHandler_ = function(el) {
   };
 };
 
-studio.forms.ZipField.makeDragenterHandler_ = function(el) {
+studio.forms.MultiImageField.makeDragenterHandler_ = function(el) {
   return function(evt) {
     el = $(el).get(0);
     if (el._studio_frm_dragtimeout_) {
@@ -1430,7 +1430,7 @@ studio.forms.ZipField.makeDragenterHandler_ = function(el) {
   };
 };
 
-studio.forms.ZipField.makeDragleaveHandler_ = function(el) {
+studio.forms.MultiImageField.makeDragleaveHandler_ = function(el) {
   return function(evt) {
     el = $(el).get(0);
     if (el._studio_frm_dragtimeout_)

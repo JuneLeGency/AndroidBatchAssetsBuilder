@@ -40,5 +40,5 @@ cd ..
 cd ..
 
 rm -R /var/www/html/android
+chmod -R 755 _gh-pages
 cp  -R _gh-pages /var/www/html/android
-chmod -R 755 /var/www/html/android
