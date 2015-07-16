@@ -89,9 +89,9 @@
         // TODO: poor abstraction here
         $('.out-image-group').toggleClass('dark', values['theme'] == 'dark');
 
-        var iconName = values['name'];
+        var iconName = "";
         zipper.clear();
-        zipper.setZipFilename(iconName + '.zip');
+        zipper.setZipFilename("icons" + '.zip');
 
         if (!values['source'].ctx.length>0) {
           return;
@@ -101,7 +101,7 @@
         console.log("一共"+pics.length+"个文件");
         for(i=0;i<pics.length;i++){
           var srcCtx = pics[i];
-          iconName=params[i].name;
+          iconName=params[i].name.split('.')[0];;
           if(srcCtx==null)
             console.error(i+"的图标为空");
           var srcSize = { w: srcCtx.canvas.width, h: srcCtx.canvas.height };
