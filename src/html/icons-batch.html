@@ -138,7 +138,7 @@
             }
 
             zipper.add({
-              name: 'res/drawable-' + density + '/' +studio.util.sanitizeResourceName(iconName)+".png",
+              name: 'res/drawable-' + density + '/' +pre_nameField.getValue()+studio.util.sanitizeResourceName(iconName)+suf_nameField.getValue()+".png",
               base64data: outCtx.canvas.toDataURL().match(/;base64,(.+)/)[1]
             });
 
@@ -150,6 +150,9 @@
           }
         }
       }
+
+      var pre_nameField;
+      var suf_nameField;
 
       var form = new studio.forms.Form('iconform', {
         onChange: function(field) {
@@ -187,7 +190,17 @@
             defaultValue: '#33b5e5',
             alpha: true,
             defaultAlpha: 100
-          })
+          }),
+          (pre_nameField = new studio.forms.TextField('pre_name', {
+            title: '前缀',
+            helpText: '批量加资源名称的前缀.',
+            defaultValue: 'tab_'
+          })),
+          (suf_nameField = new studio.forms.TextField('suf_name', {
+            title: '后缀',
+            helpText: '批量加资源的后缀.',
+            defaultValue: '_active'
+          }))
         ]
       });
       form.createUI($('#inputs-form').get(0));
