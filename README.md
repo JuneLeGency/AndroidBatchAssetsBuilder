@@ -1,5 +1,7 @@
 AndroidBatchAssetsBuilder
 ====================
+
+[![Join the chat at https://gitter.im/JuneLeGency/AndroidBatchAssetsBuilder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuneLeGency/AndroidBatchAssetsBuilder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
  为了适应多个屏幕
  
  你是否也遇到好多图标需要调整分辨率
