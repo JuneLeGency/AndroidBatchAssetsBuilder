@@ -1,6 +1,6 @@
 AndroidBatchAssetsBuilder
 ====================
-
+AS 自带图标管理已经够用了，仓库归档。
 [![Join the chat at https://gitter.im/JuneLeGency/AndroidBatchAssetsBuilder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JuneLeGency/AndroidBatchAssetsBuilder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
  为了适应多个屏幕
  
@@ -19,9 +19,6 @@ AndroidBatchAssetsBuilder
 - Action bar 和 tab 中的图标
 - 通知栏图标
 - 通用的普通图标
-
-如果你感觉项目对你有帮助 欢迎支付宝捐助 十分感激
-![](https://raw.githubusercontent.com/JuneLeGency/AndroidBatchAssetsBuilder/656eea9f4a9d49151bdc2363d26e6e8df06eff5d/src/css/donate.jpg)
 
 基于[原作者项目](https://github.com/romannurik/AndroidAssetStudio)修改
 支持批处理
